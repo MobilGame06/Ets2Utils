@@ -7,9 +7,6 @@ from utils import telemetry
 settings_file = 'settings.json'
 is_active = False 
 
-def test():
-    print("Test")
-
 
 def writeText():
     time.sleep(2)
@@ -41,12 +38,11 @@ def check_movement():
 
         # Ausgabe des Bewegungsstatus
         if is_moving:
-            print("Das Fahrzeug bewegt sich.")
-            timer_start = time.time()  # Startzeit des Timers aktualisieren
+            print("The vehicle is moving..")
+            timer_start = time.time() 
         else:
-            print("Das Fahrzeug steht oder ist nicht im Spiel.")
+            print("The vehicle is stationary or not in play.")
             if timer_start != 0 and time.time() - timer_start >= 20:
-                print("Text wird geschrieben...")
+                print("Text is being written...")
                 writeText()
-                # Hier den Code für den Test einfügen
-                timer_start = time.time()  # Timer zurücksetzen, da der Test ausgeführt wurde
+                timer_start = time.time() 
