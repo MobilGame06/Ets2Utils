@@ -1,5 +1,5 @@
 import customtkinter
-from CTkMessagebox import CTkMessagebox
+from tkinter import messagebox
 from CTkToolTip import *
 import antiAfk
 import threading
@@ -26,11 +26,12 @@ def show_tooltip(element, text):
 
 def save_antiAFK():
     settings_utils.update_entry(settings_file, "text", antiAfkTextbox.get('1.0', '6.0').replace('\n', ' '))
-    CTkMessagebox(title="Info", message="Text Saved")
+    messagebox.showinfo("Info", "Text Saved")
 
 def save_settings():
     settings_utils.update_entry(settings_file, "telemetryIP", telemetryUrlTextbox.get('1.0', '6.0').replace('\n', ''))
-    CTkMessagebox(title="Info", message="Settings Saved")
+    settings_utils.update_entry(settings_file, "delay", delayTextbox.get('1.0', '6.0').replace('\n', ''))
+    messagebox.showinfo("Info","Settings Saved")
 
 
 app = customtkinter.CTk()
@@ -71,7 +72,13 @@ telemetryUrlLabel.grid(row=0, column=0, padx=10, pady=(20, 0))
 telemetryUrlTextbox = customtkinter.CTkTextbox(master=SettingsTab, width=400, height=10)
 telemetryUrlTextbox.grid(row=1, column=0, padx=10, pady=10)
 telemetryUrlTextbox.insert("0.0", settings_utils.read_entry(settings_file, "telemetryIP"))
-telemetryUrlTextbox.bind("<Enter>", show_tooltip(telemetryUrlTextbox, "Format: http://localhost:25555"))
+telemetryUrlTextbox.bind("<Enter>", show_tooltip(telemetryUrlTextbox, "Format: http://<IP>:<PORT>"))
+
+
+delayTextbox = customtkinter.CTkTextbox(master=SettingsTab, width=400, height=10)
+delayTextbox.grid(row=2, column=0, padx=10, pady=10)
+delayTextbox.insert("0.0", settings_utils.read_entry(settings_file, "delay"))
+delayTextbox.bind("<Enter>", show_tooltip(delayTextbox, "Delay in seconds"))
 
 settingsSaveButton = customtkinter.CTkButton(master=SettingsTab, text="Save", fg_color="#16a085", text_color="#2c3e50",hover_color="black" ,command=save_settings, width=50)
 settingsSaveButton.place(x=460, y=450)

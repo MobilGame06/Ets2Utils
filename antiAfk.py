@@ -42,7 +42,7 @@ def check_movement():
             timer_start = time.time() 
         else:
             print("The vehicle is stationary or not in play.")
-            if timer_start != 0 and time.time() - timer_start >= 20:
+            if timer_start != 0 and time.time() - timer_start >= float(settings_utils.read_entry(settings_file, "delay")):
                 print("Text is being written...")
                 writeText()
                 timer_start = time.time() 
